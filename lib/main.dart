@@ -1,31 +1,65 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:provider_practice/list.dart';
-// import './controllers/fetchList.dart';
-// import './Provider/patient_search_list.dart';
+import 'package:provider_practice/Provider/patients_tab.dart';
+// import 'package:provider_practice/controllers/fetchList.dart';
+// import 'package:provider_practice/Provider/patient_search_list.dart';
+import 'package:provider_practice/screens/screen1.dart';
+import 'package:provider_practice/screens/screen2.dart';
+import 'package:provider_practice/screens/screen3.dart';
+import 'package:provider_practice/screens/screen4.dart';
+import 'package:provider_practice/screens/screen5.dart';
+import 'package:provider_practice/screens/screen6.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    // MultiProvider(
+    //   providers: [
+    //     ChangeNotifierProvider(
+    //       create: (context) {
+    //         PatientsTab();
+    //       },
+    //     )
+    //   ],
+    // child:
+    const MyApp(),
+    // ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider.value(
+      value: PatientsTab(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage(title: "Flutter Demo Home Page"),
+        routes: {
+          PatientList.routeName: (context) => PatientList(),
+          Screen1.routeName: (context) => Screen1(),
+          Screen2.routeName: (context) => Screen2(),
+          Screen3.routeName: (context) => Screen3(),
+          Screen4.routeName: (context) => Screen4(),
+          Screen5.routeName: (context) => Screen5(),
+          Screen6.routeName: (context) => Screen6(),
+        },
       ),
-      home: const MyHomePage(title: "Flutter Demo Home Page"),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  // const MyHomePage({super.key, required this.title});  // old value
 
   final String title;
 
@@ -72,13 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return PatientList(
-                      url: 'https://jsonplaceholder.typicode.com/users',
-                    );
-                  },
-                ));
+                Navigator.pushNamed(context, PatientList.routeName,
+                    arguments: PatientListArguments(
+                        'https://jsonplaceholder.typicode.com/users'));
+                // url: 'https://jsonplaceholder.typicode.com/users'
               },
               child: const Text("Get List"),
             ),

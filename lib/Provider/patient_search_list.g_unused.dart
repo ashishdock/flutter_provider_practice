@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'patient_search_list.dart';
+part of 'patient_search_list_unused.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

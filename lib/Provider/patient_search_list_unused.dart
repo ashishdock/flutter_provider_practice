@@ -1,6 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'dart:io';
+import 'patients_tab.dart';
 
-part 'patient_search_list.g.dart';
+part 'patient_search_list.g_unused.dart';
 
 @JsonSerializable()
 class PatientIndividual {
@@ -30,6 +35,7 @@ class PatientIndividual {
   Map<String, dynamic> toJson() => _$PatientIndividualToJson(this);
 
   static List<PatientIndividual> fromJsonList(dynamic jsonList) {
+    // May be convert the type of this method to future and fetch data in the method
     final patientSearchResults = <PatientIndividual>[];
     if (jsonList == null) return patientSearchResults;
     if (jsonList is List<dynamic>) {
@@ -45,7 +51,13 @@ class PatientIndividual {
     // print(patientSearchResults);
     // print(
     //     "**************************************************************************************");
+    // notify
     return patientSearchResults;
+  }
+
+  void addToOpenPtTabs(PatientIndividual pt) {
+    PatientsTab().addPatientToOpenTabs(pt);
+    // notifyListeners();
   }
 }
 
